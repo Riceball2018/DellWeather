@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DellWeatherApp.JsonParsing;
 using DellWeatherApp.Webservice;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace DellWeatherApp
 {
@@ -89,6 +91,7 @@ namespace DellWeatherApp
             {
                 if (cityMap.ContainsKey(activeCityId))
                 {
+                    NotifyPropertyChanged();
                     return cityMap[activeCityId];
                 }
 
@@ -100,11 +103,10 @@ namespace DellWeatherApp
         }
         
         private Dictionary<int, City> cityMap = new Dictionary<int, City>();
+        private List<Image> weatherImages = new List<Image>();
         private int activeCityId;
 
-        /// <summary>
-        /// Cache lifetime before cache is dirty, 10 minutes because openweatherapi is accurate at 10 min intervals
-        /// </summary>
+        // Cache lifetime before cache is dirty, 10 minutes because openweatherapi is accurate at 10 min intervals
         private readonly double cacheLife = 600;  // 10 mins
 
         public CityViewModel()
@@ -123,13 +125,56 @@ namespace DellWeatherApp
             cityMap.Add(taipeiCity.CityId, taipeiCity);
             cityMap.Add(austinCity.CityId, austinCity);
             cityMap.Add(sfCity.CityId, sfCity);
+
+            GenerateWeatherIcons();
         }
 
         public void ShowWeatherInfo(int cityId)
         {
             activeCityId = cityId;
-            //NotifyPropertyChanged("ActiveCity");
-            //NotifyPropertyChanged("ActiveWeather");
+
+            NotifyPropertyChanged("ActiveCity");
+            NotifyPropertyChanged("ActiveWeather");
+        }
+
+        public Image GetWeatherImage()
+        {
+            if (!cityMap.ContainsKey(activeCityId)) return weatherImages[0];
+
+            List<Weather> weathers = cityMap[activeCityId].CityWeather.WeatherConditions;
+
+            if (weathers.Count > 0)
+            {
+                int id = weathers[0].Id;
+                Image img = weatherImages[0];
+                // Rain
+                if (id < 600)
+                {
+                    img = weatherImages[1];
+                }
+
+                // Snow
+                else if (id < 700)
+                {
+                    img = weatherImages[2];
+                }
+
+                // Atmosphere
+                else if (id < 800)
+                {
+                    img = weatherImages[3];
+                }
+
+                // Clouds
+                else if (id > 800)
+                {
+                    img = weatherImages[4];
+                }
+
+                return img;
+            }
+
+            return weatherImages[0];
         }
 
         /// <summary>
@@ -199,6 +244,24 @@ namespace DellWeatherApp
         public float KelvinToF(float temp)
         {
             return (temp - 273.15f) * (9.0f / 5.0f) + 32;
+        }
+
+        private void GenerateWeatherIcons()
+        {
+            string[] imagePaths = { "ms-appx:///Assets/clear.png"
+                                  , "ms-appx:///Assets/rain.png"
+                                  , "ms-appx:///Assets/snow.png"
+                                  , "ms-appx:///Assets/cloudy.png"
+                                  , "ms-appx:///Assets/cloudy2.png"
+                                  };
+
+            for (int i = 0; i < imagePaths.Length; ++i)
+            {
+                Image img = new Image();
+                img.Source = new BitmapImage(new Uri(imagePaths[i]));
+
+                weatherImages.Add(img);
+            }
         }
 
         private bool IsWeatherClean(City city)

@@ -112,6 +112,18 @@ namespace DellWeatherApp
             SunsetTxt.Text = ViewModel.ActiveWeather.Sys.Sunset.ToString(dateFormat);
             HumidityTxt.Text = ViewModel.ActiveWeather.Main.Humidity + "%";
             TimeStampTxt.Text = ViewModel.ActiveWeather.Dt.ToString(timeStampFormat);
+            
+            if (ViewModel.ActiveWeather.WeatherConditions.Count > 0)
+            {
+                WeatherImg.Source = ViewModel.GetWeatherImage().Source;
+                WeatherTxt.Text = ViewModel.ActiveWeather.WeatherConditions[0].Description.ToUpper();
+            }
+
+            else
+            {
+                WeatherTxt.Text = "";
+                WeatherImg.Source = ViewModel.GetWeatherImage().Source;
+            }
         }
 
         private void SetInfoPanelVisibile()

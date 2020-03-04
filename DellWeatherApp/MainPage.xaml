@@ -9,13 +9,16 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ListBox x:Name="CitiesList" ItemsSource="{x:Bind ViewModel.Cities}" Width="260" HorizontalAlignment="Left" Padding="10,10,10,10">
-            <ListBox.ItemTemplate>
-                <DataTemplate x:DataType="local:City">
-                    <Button Content="{x:Bind Name}" Tag="{x:Bind CityId}" Width="240" VerticalAlignment="Center" HorizontalAlignment="Center" Click="CityBtn_Click"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="260">
+            <ListBox x:Name="CitiesList" ItemsSource="{x:Bind ViewModel.Cities}" Width="260" HorizontalAlignment="Left" MaxHeight="600" MaxWidth="260" FocusVisualPrimaryBrush="White" BorderBrush="White" MinWidth="260">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="local:City">
+                        <Button Content="{x:Bind Name}" Tag="{x:Bind CityId}" Width="240" VerticalAlignment="Center" HorizontalAlignment="Center" Click="CityBtn_Click" Height="30"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button x:Name="AddCityBtn" Content="+" Padding="-1,0,0,0" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" FontSize="16" Width="240" Height="30" Margin="10,0,0,0"/>
+        </StackPanel>
 
         <StackPanel x:Name="SettingsPanel" HorizontalAlignment="Left" Width="100" Margin="270,20,0,0">
             <ToggleSwitch x:Name="TempTgl" OnContent="F" OffContent="C" Margin="0,10,0,0" VerticalAlignment="Top" Width="100" Height="45" FontSize="24" MinWidth="1" Toggled="TempTgl_Toggled"/>
@@ -25,7 +28,13 @@
         <StackPanel HorizontalAlignment="Left" Height="1060" Margin="380,0,0,0" VerticalAlignment="Center" Width="800" RequestedTheme="Default" Padding="0,160,0,0">
             <TextBlock x:Name="CityNameTxt" Text="Select a city" TextWrapping="Wrap" FontSize="72" FontWeight="Bold" HorizontalAlignment="Center"/>
             <StackPanel x:Name="InfoPanel" HorizontalAlignment="Center" Height="700" Margin="0,0,0,0" VerticalAlignment="Center" Width="800" RequestedTheme="Default" Padding="0,0,0,0">
-                <TextBlock x:Name="TempTxt" Text="Tmp" TextWrapping="Wrap" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="48" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="120" Width="400" Margin="300,0,0,0">
+                    <TextBlock x:Name="TempTxt" Text="Tmp" TextWrapping="Wrap" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <StackPanel HorizontalAlignment="Center" Margin="50,0,0,0">
+                        <Image x:Name="WeatherImg" Source="ms-appx:///Assets/clear.png" Height="100" Width="100"/>
+                        <TextBlock x:Name="WeatherTxt" Text="" TextWrapping="Wrap" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                </StackPanel>
                 <StackPanel x:Name="TempPanel" Orientation="Horizontal" RelativePanel.Below="TempTxt" HorizontalAlignment="Center" Margin="0,0,0,0">
                     <TextBlock x:Name="LowTemp" Text="Low:" TextWrapping="Wrap" FontSize="36" Margin="0,20,0,0"/>
                     <TextBlock x:Name="LowTempTxt" Text="C" TextWrapping="Wrap" FontSize="36" Margin="20,20,0,0"/>

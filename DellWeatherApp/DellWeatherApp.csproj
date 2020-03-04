@@ -143,6 +143,11 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\clear.png" />
+    <Content Include="Assets\cloudy.png" />
+    <Content Include="Assets\cloudy2.png" />
+    <Content Include="Assets\rain.png" />
+    <Content Include="Assets\snow.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
