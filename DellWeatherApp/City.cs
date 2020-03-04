@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -47,18 +48,54 @@ namespace DellWeatherApp
 
         public void CacheWeatherInfo(WeatherModel weatherModel)
         {
+            CityWeather = weatherModel;
             weatherCache = weatherModel;
             CacheTime = weatherModel.Dt;
         }
     }
 
-    public class CityViewModel
+    public class CityViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private ObservableCollection<City> cities = new ObservableCollection<City>();
         public ObservableCollection<City> Cities { get { return cities; } }
 
-        private Dictionary<int, City> cityMap = new Dictionary<int, City>();
+        public WeatherModel ActiveWeather
+        {
+            get
+            {
+                if (cityMap.ContainsKey(activeCityId))
+                {
+                    return cityMap[activeCityId].CityWeather;
+                }
 
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public City ActiveCity
+        {
+            get
+            {
+                if (cityMap.ContainsKey(activeCityId))
+                {
+                    return cityMap[activeCityId];
+                }
+
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private Dictionary<int, City> cityMap = new Dictionary<int, City>();
+        private int activeCityId;
+        
         public CityViewModel()
         {
             City singaporeCity = new City("Singapore");
@@ -79,9 +116,16 @@ namespace DellWeatherApp
 
         public void ShowWeatherInfo(int cityId)
         {
-
+            activeCityId = cityId;
+            //NotifyPropertyChanged("ActiveCity");
+            //NotifyPropertyChanged("ActiveWeather");
         }
 
+        /// <summary>
+        /// Get Weather information via web service
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
         public async Task<WeatherModel> GetWeather(int cityId)
         {
             if (!cityMap.ContainsKey(cityId)) return null;
@@ -99,6 +143,11 @@ namespace DellWeatherApp
             {
                 return cityMap[cityId].CityWeather;
             }
+        }
+
+        protected void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

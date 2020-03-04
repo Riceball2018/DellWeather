@@ -66,7 +66,7 @@ namespace DellWeatherApp.JsonParsing
         // Time of data calculation
         [JsonIgnore]
         private DateTime dt;
-
+        [JsonIgnore]
         public DateTime Dt
         {
             get
@@ -87,7 +87,8 @@ namespace DellWeatherApp.JsonParsing
         // For sunrise
         [JsonIgnore]
         private Sys sys;
-        [JsonProperty("sys")]
+        //[JsonProperty("sys")]
+        [JsonIgnore]
         public Sys Sys
         {
             get

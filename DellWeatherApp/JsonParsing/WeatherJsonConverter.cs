@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using DellWeatherApp.Extensions;
 
 namespace DellWeatherApp.JsonParsing
 {
@@ -14,14 +15,20 @@ namespace DellWeatherApp.JsonParsing
 
             JToken t = JToken.Load(reader);
 
+            int dt = t["dt"].ToObject<int>();
+            DateTime dateTime = ((long)dt).UnixToDateTime();
+            string sysStr = t["sys"].ToString();
+            Sys sys = JsonConvert.DeserializeObject<Sys>(sysStr, new JsonConverter[] { new SysJsonConverter() });
+            //Sys sys = JsonConvert.DeserializeObject<Sys>(sysStr);
+
             return new WeatherModel
             {
-                  WeatherConditions = JsonConvert.DeserializeObject<List<Weather>>(t["weather"].ToString())
+                WeatherConditions = JsonConvert.DeserializeObject<List<Weather>>(t["weather"].ToString())
                 , Main = t["main"].ToObject<Main>()
                 , Id = t["id"].ToObject<int>()
-                , Sys = t["sys"].ToObject<Sys>()
+                , Sys = sys
                 , Name = t["name"].ToString()
-                , Dt = UnixToDateTime(t["dt"].ToObject<int>())
+                , Dt = dateTime
             };
         }
 
@@ -33,13 +40,6 @@ namespace DellWeatherApp.JsonParsing
         public override bool CanConvert(Type objectType)
         {
             return typeof(WeatherModel) == objectType;
-        }
-
-        private DateTime UnixToDateTime(long time)
-        {
-            DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            dt = dt.AddSeconds(time).ToLocalTime();
-            return dt;
         }
     }
 }

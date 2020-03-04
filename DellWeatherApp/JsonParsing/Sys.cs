@@ -32,9 +32,9 @@ namespace DellWeatherApp.JsonParsing
         }
 
         [JsonIgnore]
-        private int sunrise;
-        [JsonProperty("sunrise")]
-        public int Sunrise
+        private DateTime sunrise;
+        [JsonIgnore]
+        public DateTime Sunrise
         {
             get
             {
@@ -53,9 +53,9 @@ namespace DellWeatherApp.JsonParsing
 
 
         [JsonIgnore]
-        private int sunset;
-        [JsonProperty("sunset")]
-        public int Sunset
+        private DateTime sunset;
+        [JsonIgnore]
+        public DateTime Sunset
         {
             get
             {

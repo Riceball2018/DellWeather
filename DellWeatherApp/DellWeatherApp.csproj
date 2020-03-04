@@ -120,11 +120,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="City.cs" />
+    <Compile Include="Extensions\UtilityExtensions.cs" />
     <Compile Include="JsonParsing\BaseJson.cs" />
     <Compile Include="JsonParsing\Clouds.cs" />
     <Compile Include="JsonParsing\Coord.cs" />
     <Compile Include="JsonParsing\Main.cs" />
     <Compile Include="JsonParsing\Sys.cs" />
+    <Compile Include="JsonParsing\SysJsonConverter.cs" />
     <Compile Include="JsonParsing\Weather.cs" />
     <Compile Include="JsonParsing\WeatherJsonConverter.cs" />
     <Compile Include="JsonParsing\Wind.cs" />
