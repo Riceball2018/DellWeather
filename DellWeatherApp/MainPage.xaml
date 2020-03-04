@@ -16,21 +16,29 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <ToggleSwitch x:Name="TempTgl" OnContent="F" OffContent="C" Margin="270,20,0,0" VerticalAlignment="Top" Width="100" Height="45" FontSize="24" MinWidth="1" Toggled="TempTgl_Toggled"/>
+        <ToggleSwitch x:Name="TimeTgl" OnContent="12H" OffContent="24H" Margin="270,65,0,0" VerticalAlignment="Top" Width="100" Height="45" FontSize="24" MinWidth="1" Toggled="TimeTgl_Toggled"/>
 
-        <RelativePanel HorizontalAlignment="Left" Height="1060" Margin="265,0,0,0" VerticalAlignment="Center" Width="1655" RequestedTheme="Default">
-            <TextBlock x:Name="CityNameTxt" Text="Select a city" TextWrapping="Wrap" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="72" RelativePanel.AlignTopWithPanel="True" FontWeight="Bold" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" Margin="200,150,0,0" HorizontalAlignment="Center"/>
-            <TextBlock x:Name="TempTxt" Text="Tmp" TextWrapping="Wrap" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="48" RelativePanel.AlignHorizontalCenterWith="CityNameTxt" HorizontalAlignment="Left" RelativePanel.Below="CityNameTxt" Margin="200,20,0,0"/>
-            <TextBlock x:Name="LowTemp" Text="Low:" TextWrapping="Wrap" FontSize="36" RelativePanel.AlignHorizontalCenterWith="CityNameTxt" HorizontalAlignment="Left" Margin="0,20,0,0" RelativePanel.Below="TempTxt"/>
-            <TextBlock x:Name="LowTempTxt" Text="C" TextWrapping="Wrap" FontSize="36" RelativePanel.AlignHorizontalCenterWith="" HorizontalAlignment="Left" RelativePanel.RightOf="LowTemp" RelativePanel.AlignVerticalCenterWith="LowTemp" VerticalAlignment="Center" Margin="20,20,0,0"/>
-            <TextBlock x:Name="HighTemp" Text="High:" TextWrapping="Wrap" FontSize="36" HorizontalAlignment="Left" Margin="20,20,0,0" RelativePanel.RightOf="LowTempTxt" RelativePanel.AlignVerticalCenterWith="LowTempTxt" RelativePanel.AlignLeftWith="Sunset"/>
-            <TextBlock x:Name="HighTempTxt" Text="C" TextWrapping="Wrap" FontSize="36" HorizontalAlignment="Left" RelativePanel.RightOf="HighTemp" RelativePanel.AlignVerticalCenterWith="HighTemp" Margin="18,20,0,0"/>
-            <TextBlock x:Name="Sunrise" Text="Sunrise:" TextWrapping="Wrap" FontSize="36"  HorizontalAlignment="Left" Margin="0,20,0,0" RelativePanel.Below="LowTemp" RelativePanel.AlignLeftWith="LowTemp"/>
-            <TextBlock x:Name="SunriseTxt" Text="00:00" TextWrapping="Wrap" FontSize="36" RelativePanel.AlignHorizontalCenterWith="" HorizontalAlignment="Left" Margin="20,20,0,0" RelativePanel.RightOf="Sunrise" RelativePanel.AlignVerticalCenterWith="Sunrise"/>
-            <TextBlock x:Name="Sunset" Text="Sunset:" TextWrapping="Wrap" FontSize="36" RelativePanel.AlignHorizontalCenterWith="" HorizontalAlignment="Left" Margin="20,20,0,0" RelativePanel.RightOf="SunriseTxt" RelativePanel.AlignVerticalCenterWith="SunriseTxt"/>
-            <TextBlock x:Name="SunsetTxt" Text="00:00" TextWrapping="Wrap" FontSize="36" RelativePanel.AlignHorizontalCenterWith="" HorizontalAlignment="Left" Margin="0,20,0,0" RelativePanel.RightOf="Sunset" RelativePanel.AlignVerticalCenterWith="Sunset"/>
-            <TextBlock x:Name="Humidity" Text="Humidity:" TextWrapping="Wrap" FontSize="36" RelativePanel.AlignHorizontalCenterWith="CityNameTxt" HorizontalAlignment="Center" RelativePanel.Below="Sunrise" Margin="120,0,0,0"/>
-            <TextBlock x:Name="HumidityTxt" Text="%" TextWrapping="Wrap" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="36" RelativePanel.AlignHorizontalCenterWith="" RelativePanel.RightOf="Humidity" RelativePanel.AlignVerticalCenterWith="Humidity" VerticalAlignment="Stretch" Margin="20,0,0,0"/>
-            <Button x:Name="RefreshBtn" Content="Refresh" FontSize="36" Click="Button_Click" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignBottomWith="" RelativePanel.AlignLeftWith="" RelativePanel.Below="HumidityTxt" RelativePanel.AlignHorizontalCenterWith="CityNameTxt" Padding="0,0,0,0" Margin="200,20,0,0"/>
-        </RelativePanel>
+        <StackPanel HorizontalAlignment="Left" Height="1060" Margin="380,0,0,0" VerticalAlignment="Center" Width="800" RequestedTheme="Default" Padding="0,160,0,0">
+            <TextBlock x:Name="CityNameTxt" Text="Select a city" TextWrapping="Wrap" FontSize="72" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="TempTxt" Text="Tmp" TextWrapping="Wrap" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="48" HorizontalAlignment="Center"/>
+            <StackPanel x:Name="TempPanel" Orientation="Horizontal" RelativePanel.Below="TempTxt" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <TextBlock x:Name="LowTemp" Text="Low:" TextWrapping="Wrap" FontSize="36" Margin="0,20,0,0"/>
+                <TextBlock x:Name="LowTempTxt" Text="C" TextWrapping="Wrap" FontSize="36" Margin="20,20,0,0"/>
+                <TextBlock x:Name="HighTemp" Text="High:" TextWrapping="Wrap" FontSize="36" Margin="20,20,0,0"/>
+                <TextBlock x:Name="HighTempTxt" Text="C" TextWrapping="Wrap" FontSize="36" Margin="20,20,0,0"/>
+            </StackPanel>
+            <StackPanel x:Name="SunrisePanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <TextBlock x:Name="Sunrise" Text="Sunrise:" TextWrapping="Wrap" FontSize="36" HorizontalAlignment="Left" Margin="0,20,0,0"/>
+                <TextBlock x:Name="SunriseTxt" Text="00:00" TextWrapping="Wrap" FontSize="36" HorizontalAlignment="Left" Margin="20,20,0,0"/>
+                <TextBlock x:Name="Sunset" Text="Sunset:" TextWrapping="Wrap" FontSize="36" HorizontalAlignment="Left" Margin="20,20,0,0"/>
+                <TextBlock x:Name="SunsetTxt" Text="00:00" TextWrapping="Wrap" FontSize="36" HorizontalAlignment="Left" Margin="20,20,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                <TextBlock x:Name="Humidity" Text="Humidity:" TextWrapping="Wrap" FontSize="36" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                <TextBlock x:Name="HumidityTxt" Text="%" TextWrapping="Wrap" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="36" Margin="20,0,0,0"/>
+            </StackPanel>
+            <Button x:Name="RefreshBtn" Content="Refresh" FontSize="36" HorizontalAlignment="Center" Click="RefreshBtn_Click" Margin="0,20,0,0"/>
+        </StackPanel>
     </Grid>
 </Page>

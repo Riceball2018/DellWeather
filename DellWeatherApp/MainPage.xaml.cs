@@ -27,6 +27,7 @@ namespace DellWeatherApp
         {
             this.InitializeComponent();
             this.ViewModel = new CityViewModel();
+            SetInfoPanelCollapsed();
         }
 
         public CityViewModel ViewModel { get; set; }
@@ -36,9 +37,21 @@ namespace DellWeatherApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void RefreshBtn_Click(object sender, RoutedEventArgs e)
         {
+            WeatherModel wm = await ViewModel.GetWeather();
 
+            if (wm != null)
+            {
+                SetInfoPanelVisibile();
+                UpdateWeatherDetails();
+            }
+
+            else
+            {
+                CityNameTxt.Text = "Refresh failed";
+                SetInfoPanelCollapsed();
+            }
         }
 
         private async void CityBtn_Click(object sender, RoutedEventArgs e)
@@ -64,11 +77,37 @@ namespace DellWeatherApp
 
         private void UpdateWeatherDetails()
         {
-            TempTxt.Text = ViewModel.ActiveWeather.Main.Temp.ToString();
-            LowTempTxt.Text = ViewModel.ActiveWeather.Main.TempMin.ToString();
-            HighTempTxt.Text = ViewModel.ActiveWeather.Main.TempMax.ToString();
-            SunriseTxt.Text = ViewModel.ActiveWeather.Sys.Sunrise.ToString("HH:mm");
-            SunsetTxt.Text = ViewModel.ActiveWeather.Sys.Sunset.ToString("HH:mm");
+            float temp, lowTemp, highTemp;
+            string dateFormat = "HH:mm";
+            string tempUnit = " C";
+
+            // Celsius
+            if (!TempTgl.IsOn)
+            {
+                temp = ViewModel.KelvinToC(ViewModel.ActiveWeather.Main.Temp);
+                lowTemp = ViewModel.KelvinToC(ViewModel.ActiveWeather.Main.Temp);
+                highTemp = ViewModel.KelvinToC(ViewModel.ActiveWeather.Main.Temp);
+            }
+
+            // Fahrenheit
+            else
+            {
+                temp = ViewModel.KelvinToF(ViewModel.ActiveWeather.Main.Temp);
+                lowTemp = ViewModel.KelvinToF(ViewModel.ActiveWeather.Main.Temp);
+                highTemp = ViewModel.KelvinToF(ViewModel.ActiveWeather.Main.Temp);
+                tempUnit = " F";
+            }
+
+            if (TimeTgl.IsOn)
+            {
+                dateFormat = "hh:mm tt";
+            }
+
+            TempTxt.Text = temp.ToString("0.0") + tempUnit;
+            LowTempTxt.Text = lowTemp.ToString("0.0") + tempUnit;
+            HighTempTxt.Text = highTemp.ToString("0.0") + tempUnit;
+            SunriseTxt.Text = ViewModel.ActiveWeather.Sys.Sunrise.ToString(dateFormat);
+            SunsetTxt.Text = ViewModel.ActiveWeather.Sys.Sunset.ToString(dateFormat);
             HumidityTxt.Text = ViewModel.ActiveWeather.Main.Humidity + "%";
         }
 
@@ -85,10 +124,12 @@ namespace DellWeatherApp
             SunsetTxt.Visibility = Visibility.Visible;
             Humidity.Visibility = Visibility.Visible;
             HumidityTxt.Visibility = Visibility.Visible;
+            RefreshBtn.Visibility = Visibility.Visible;
         }
 
         private void SetInfoPanelCollapsed()
         {
+            RefreshBtn.Visibility = Visibility.Collapsed;
             TempTxt.Visibility = Visibility.Collapsed;
             LowTemp.Visibility = Visibility.Collapsed;
             LowTempTxt.Visibility = Visibility.Collapsed;
@@ -100,6 +141,16 @@ namespace DellWeatherApp
             SunsetTxt.Visibility = Visibility.Collapsed;
             Humidity.Visibility = Visibility.Collapsed;
             HumidityTxt.Visibility = Visibility.Collapsed;
+        }
+
+        private void TempTgl_Toggled(object sender, RoutedEventArgs e)
+        {
+            UpdateWeatherDetails();
+        }
+
+        private void TimeTgl_Toggled(object sender, RoutedEventArgs e)
+        {
+            UpdateWeatherDetails();
         }
     }
 }
