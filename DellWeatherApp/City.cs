@@ -18,6 +18,7 @@ namespace DellWeatherApp
         public int CityId { get; private set; }          // City id for weather request
         public DateTime CacheTime { get; private set; }  // Time weather information was retrieved
 
+        // TODO: Auto update even when refresh not clicked
         private WeatherModel weatherCache;
 
         public City(string cityName)

@@ -116,11 +116,13 @@ namespace DellWeatherApp
 
         private void SetInfoPanelVisibile()
         {
+            SettingsPanel.Visibility = Visibility.Visible;
             InfoPanel.Visibility = Visibility.Visible;
         }
 
         private void SetInfoPanelCollapsed()
         {
+            SettingsPanel.Visibility = Visibility.Collapsed;
             InfoPanel.Visibility = Visibility.Collapsed;
         }
 

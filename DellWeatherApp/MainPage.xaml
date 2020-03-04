@@ -16,8 +16,11 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ToggleSwitch x:Name="TempTgl" OnContent="F" OffContent="C" Margin="270,20,0,0" VerticalAlignment="Top" Width="100" Height="45" FontSize="24" MinWidth="1" Toggled="TempTgl_Toggled"/>
-        <ToggleSwitch x:Name="TimeTgl" OnContent="12H" OffContent="24H" Margin="270,65,0,0" VerticalAlignment="Top" Width="100" Height="45" FontSize="24" MinWidth="1" Toggled="TimeTgl_Toggled"/>
+
+        <StackPanel x:Name="SettingsPanel" HorizontalAlignment="Left" Width="100" Margin="270,20,0,0">
+            <ToggleSwitch x:Name="TempTgl" OnContent="F" OffContent="C" Margin="0,10,0,0" VerticalAlignment="Top" Width="100" Height="45" FontSize="24" MinWidth="1" Toggled="TempTgl_Toggled"/>
+            <ToggleSwitch x:Name="TimeTgl" OnContent="12H" OffContent="24H" Margin="0,10,0,0" VerticalAlignment="Top" Width="100" Height="45" FontSize="24" MinWidth="1" Toggled="TimeTgl_Toggled"/>
+        </StackPanel>
 
         <StackPanel HorizontalAlignment="Left" Height="1060" Margin="380,0,0,0" VerticalAlignment="Center" Width="800" RequestedTheme="Default" Padding="0,160,0,0">
             <TextBlock x:Name="CityNameTxt" Text="Select a city" TextWrapping="Wrap" FontSize="72" FontWeight="Bold" HorizontalAlignment="Center"/>
