@@ -79,6 +79,7 @@ namespace DellWeatherApp
         {
             float temp, lowTemp, highTemp;
             string dateFormat = "HH:mm";
+            string timeStampFormat = "dd MMMM yyyy HH:mm:ss";
             string tempUnit = " C";
 
             // Celsius
@@ -101,6 +102,7 @@ namespace DellWeatherApp
             if (TimeTgl.IsOn)
             {
                 dateFormat = "hh:mm tt";
+                timeStampFormat = "dd MMMM yyyy hh:mm:ss tt";
             }
 
             TempTxt.Text = temp.ToString("0.0") + tempUnit;
@@ -109,38 +111,17 @@ namespace DellWeatherApp
             SunriseTxt.Text = ViewModel.ActiveWeather.Sys.Sunrise.ToString(dateFormat);
             SunsetTxt.Text = ViewModel.ActiveWeather.Sys.Sunset.ToString(dateFormat);
             HumidityTxt.Text = ViewModel.ActiveWeather.Main.Humidity + "%";
+            TimeStampTxt.Text = ViewModel.ActiveWeather.Dt.ToString(timeStampFormat);
         }
 
         private void SetInfoPanelVisibile()
         {
-            TempTxt.Visibility = Visibility.Visible;
-            LowTemp.Visibility = Visibility.Visible;
-            LowTempTxt.Visibility = Visibility.Visible;
-            HighTemp.Visibility = Visibility.Visible;
-            HighTempTxt.Visibility = Visibility.Visible;
-            Sunrise.Visibility = Visibility.Visible;
-            SunriseTxt.Visibility = Visibility.Visible;
-            Sunset.Visibility = Visibility.Visible;
-            SunsetTxt.Visibility = Visibility.Visible;
-            Humidity.Visibility = Visibility.Visible;
-            HumidityTxt.Visibility = Visibility.Visible;
-            RefreshBtn.Visibility = Visibility.Visible;
+            InfoPanel.Visibility = Visibility.Visible;
         }
 
         private void SetInfoPanelCollapsed()
         {
-            RefreshBtn.Visibility = Visibility.Collapsed;
-            TempTxt.Visibility = Visibility.Collapsed;
-            LowTemp.Visibility = Visibility.Collapsed;
-            LowTempTxt.Visibility = Visibility.Collapsed;
-            HighTemp.Visibility = Visibility.Collapsed;
-            HighTempTxt.Visibility = Visibility.Collapsed;
-            Sunrise.Visibility = Visibility.Collapsed;
-            SunriseTxt.Visibility = Visibility.Collapsed;
-            Sunset.Visibility = Visibility.Collapsed;
-            SunsetTxt.Visibility = Visibility.Collapsed;
-            Humidity.Visibility = Visibility.Collapsed;
-            HumidityTxt.Visibility = Visibility.Collapsed;
+            InfoPanel.Visibility = Visibility.Collapsed;
         }
 
         private void TempTgl_Toggled(object sender, RoutedEventArgs e)

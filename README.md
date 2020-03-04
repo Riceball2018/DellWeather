@@ -7,6 +7,7 @@ A Universal Windows Platform (UWP) application written for Dell coding exercise.
 - San Francisco (CA)
 
 ## Features
+
 The followng weather information is displayed per city:
 - Current Temperature
 - Lowest Temperature
@@ -15,6 +16,8 @@ The followng weather information is displayed per city:
 - Time of sunrise
 - Time of sunset
 
-## Extensions
+## References
 
+- Newtonsoft.Json v12.0.3
+- Weather API from - openweathermap.org
 
