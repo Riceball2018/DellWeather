@@ -9,8 +9,13 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button x:Name="RefreshBtn" Content="Refresh" Height="88" Margin="10,950,0,0" VerticalAlignment="Top" Width="240" FontSize="36" Click="Button_Click"/>
-        <ListView x:Name="CitiesList"/>
-
+        <ListBox x:Name="CitiesList" ItemsSource="{x:Bind ViewModel.Cities}" Width="260" HorizontalAlignment="Left" Padding="10,10,10,10">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="local:City">
+                    <Button Content="{x:Bind Name}" Tag="{x:Bind CityId}" Width="240" VerticalAlignment="Center" HorizontalAlignment="Center" Click="CityBtn_Click"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="RefreshBtn" Content="Refresh" Height="88" VerticalAlignment="Bottom" Width="240" FontSize="36" Click="Button_Click" HorizontalAlignment="Center"/>
     </Grid>
 </Page>

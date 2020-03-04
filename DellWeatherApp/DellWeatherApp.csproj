@@ -120,11 +120,20 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="City.cs" />
+    <Compile Include="JsonParsing\BaseJson.cs" />
+    <Compile Include="JsonParsing\Clouds.cs" />
+    <Compile Include="JsonParsing\Coord.cs" />
+    <Compile Include="JsonParsing\Main.cs" />
+    <Compile Include="JsonParsing\Sys.cs" />
+    <Compile Include="JsonParsing\Weather.cs" />
+    <Compile Include="JsonParsing\WeatherJsonConverter.cs" />
+    <Compile Include="JsonParsing\Wind.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Weather.cs" />
+    <Compile Include="JsonParsing\WeatherModel.cs" />
+    <Compile Include="Webservice\WeatherService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -159,6 +168,7 @@
       <Version>12.0.3</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

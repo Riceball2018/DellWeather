@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,16 +26,25 @@ namespace DellWeatherApp
         public MainPage()
         {
             this.InitializeComponent();
+            this.ViewModel = new CityViewModel();
         }
+
+        public CityViewModel ViewModel { get; set; }
 
         /// <summary>
         /// Refresh button clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private async void CityBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //Debug.WriteLine($"{((Button)sender).Tag}");
+            await ViewModel.GetWeather((int) ((Button)sender).Tag);
         }
     }
 }
